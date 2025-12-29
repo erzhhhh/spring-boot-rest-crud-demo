@@ -35,4 +35,16 @@ public class EmployeeRestController {
         }
     }
 
+    @PostMapping("/employees")
+    public Employee addEmployee(@RequestBody Employee employee) {
+
+        // in case the client pass an id in JSON -> set it to 0
+        // this is to force a save of new item instead of update
+        employee.setId(0);
+
+        Employee dbEmployee = employeeService.save(employee);
+
+        return dbEmployee;
+    }
+
 }
