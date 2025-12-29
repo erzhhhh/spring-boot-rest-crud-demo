@@ -4,8 +4,10 @@ import com.erzhenika.springboot.cruddemo.entity.Employee;
 import com.erzhenika.springboot.cruddemo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -13,9 +15,12 @@ public class EmployeeRestController {
 
     private EmployeeService employeeService;
 
+    private JsonMapper jsonMapper;
+
     @Autowired
-    public EmployeeRestController(EmployeeService employeeService) {
+    public EmployeeRestController(EmployeeService employeeService, JsonMapper jsonMapper) {
         this.employeeService = employeeService;
+        this.jsonMapper = jsonMapper;
     }
 
     @GetMapping("/employees")
@@ -51,6 +56,26 @@ public class EmployeeRestController {
     public Employee updateEmployee(@RequestBody Employee employee) {
 
         Employee dbEmployee = employeeService.save(employee);
+
+        return dbEmployee;
+    }
+
+    @PatchMapping("/employees/{employeeId}")
+    public Employee patchEmployee(@PathVariable int employeeId, @RequestBody Map<String, Object> patchPayload) {
+
+        Employee tmpEmployee = employeeService.findById(employeeId);
+
+        if (tmpEmployee == null) {
+            throw new RuntimeException("Employee id not found " + employeeId);
+        }
+
+        if (patchPayload.containsKey("id")) {
+            throw new RuntimeException("Employee id not allowed in request body - " + employeeId);
+        }
+
+        Employee patchEmployee = jsonMapper.updateValue(tmpEmployee, patchPayload);
+
+        Employee dbEmployee = employeeService.save(patchEmployee);
 
         return dbEmployee;
     }
