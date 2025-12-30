@@ -5,8 +5,6 @@ This project serves as a practical demonstration of building a RESTful API using
 It focuses on the explicit implementation of the DAO (Data Access Object) Pattern. Instead of relying on automated repository interfaces, this application manually manages database interactions using the JPA EntityManager. This approach provides a deep understanding of how ORM (Object-Relational Mapping) works internally.
 
 
----
-
 
 ## 🚀 Overview
 
@@ -19,7 +17,6 @@ The application provides a complete Employee Directory API with full CRUD (Creat
   - REST Controller: Exposes endpoints using standard Spring MVC annotations.
   - Database Agnostic: Can be configured to work with MySQL, PostgreSQL, or H2.
 
----
 
 ## 🛠 Tech Stack
 
@@ -28,15 +25,12 @@ The application provides a complete Employee Directory API with full CRUD (Creat
   - Spring Data JPA (Hibernate)
   - MySQL Database
 
----
 
 ## ▶️ Running the project
 
 ```json
 ./mvnw spring-boot:run
 ```
-
----
 
 ## 📝 API Endpoints
 
