@@ -1,0 +1,5 @@
+FROM mysql:8.0.44-debian
+
+COPY ./init.sql /docker-entrypoint-initdb.d/init.sql
+
+RUN chmod 755 /docker-entrypoint-initdb.d/init.sql

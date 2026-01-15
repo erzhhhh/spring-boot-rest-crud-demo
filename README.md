@@ -2,11 +2,13 @@
 
 This project serves as a practical demonstration of building a RESTful API using Spring Boot and Native JPA (Hibernate).
 
-It focuses on the explicit implementation of the DAO (Data Access Object) Pattern. Instead of relying on automated repository interfaces, this application manually manages database interactions using the JPA EntityManager. This approach provides a deep understanding of how ORM (Object-Relational Mapping) works internally.
+It focuses on the explicit implementation of the DAO (Data Access Object) Pattern. 
+Instead of relying on automated repository interfaces, this application manually manages database interactions using the JPA EntityManager. 
+This approach provides a deep understanding of how ORM (Object-Relational Mapping) works internally.
 
 
 
-## 🚀 Overview
+## Overview
 
 The application provides a complete Employee Directory API with full CRUD (Create, Read, Update, Delete) capabilities.
 
@@ -16,23 +18,25 @@ The application provides a complete Employee Directory API with full CRUD (Creat
   - Service Layer: Handles transaction management using @Transactional.
   - REST Controller: Exposes endpoints using standard Spring MVC annotations.
   - Database Agnostic: Can be configured to work with MySQL, PostgreSQL, or H2.
+  - Dockerized application setup for easy run and testing
 
 
-## 🛠 Tech Stack
+## Tech Stack
 
   - Java (JDK 21)
   - Spring Boot
   - Spring Data JPA (Hibernate)
   - MySQL Database
+  - Docker
 
 
-## ▶️ Running the project
+## Running the project in Docker
 
 ```json
-./mvnw spring-boot:run
+docker compose up
 ```
 
-## 📝 API Endpoints
+## API Endpoints
 
 The API is accessible at http://localhost:8080. 
 Below are the available endpoints:
@@ -44,10 +48,9 @@ Below are the available endpoints:
 
 
 
-## 📄 API Documentation (Swagger)
+## API Documentation (Swagger)
 
 This project includes interactive API documentation powered by Swagger.
 You can explore and test all endpoints directly in the browser:
 
   - http://localhost:8080/swagger-ui/index.html
-  - OpenAPI JSON: http://localhost:8080/v3/api-docs

@@ -1,0 +1,30 @@
+services:
+  spring-employees:
+    container_name: "spring-employees-container"
+    build: . # current folder
+    depends_on:
+      - mysql-db
+    ports:
+      - "8080:8080"
+    restart: on-failure
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/employee_directory # rewriting datasource -> mysql-db instead of localhost
+      - SPRING_DATASOURCE_USERNAME=springstudent
+      - SPRING_DATASOURCE_PASSWORD=springstudent
+
+  mysql-db:
+    container_name: "mysql-container"
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    environment:
+      MYSQL_DATABASE: employee_directory
+      MYSQL_USER: springstudent
+      MYSQL_PASSWORD: springstudent
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
