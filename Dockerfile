@@ -6,4 +6,4 @@ RUN ./mvnw package
 
 EXPOSE 8080
 
-CMD java -jar /app/target/cruddemo-0.0.1-SNAPSHOT.jar
+CMD java -jar /app/target/*.jar
