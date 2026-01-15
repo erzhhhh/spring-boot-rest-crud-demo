@@ -1,0 +1,26 @@
+# ==============================================================================
+# STAGE 1: Build the application
+# We use the full JDK (Development Kit) here because we need tools to compile code.
+# We name this stage "buildstep" to reference it later.
+# ==============================================================================
+FROM ghcr.io/bell-sw/liberica-openjdk-alpine:21.0.9-cds AS buildstep
+
+COPY . /app
+WORKDIR /app
+RUN ./mvnw package
+
+
+# ==============================================================================
+# STAGE 2: Run the application
+# We use the JRE (Runtime Environment) here.
+# It is lighter and safer because it does not include build tools (like Maven or javac).
+# ==============================================================================
+FROM ghcr.io/bell-sw/liberica-openjre-alpine:21.0.9-cds
+
+# Copy only the compiled JAR file from the "buildstep" stage.
+# We rename it to "app.jar" to keep the command simple.
+COPY --from=buildstep /app/target/*.jar /app/app.jar
+
+EXPOSE 8080
+
+CMD java -jar /app/app.jar
