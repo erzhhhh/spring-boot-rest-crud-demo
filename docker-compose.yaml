@@ -1,30 +1,57 @@
 services:
+  # ==========================================
+  # Service 1: Spring Boot Application
+  # ==========================================
   spring-employees:
     container_name: "spring-employees-container"
-    build: . # current folder
+
+    # Build the image using the standard 'Dockerfile' found in the current folder
+    build: .
+
+    # Ensure Docker starts the database container before starting the application
     depends_on:
       - mysql-db
+
+    # Map port 8080 on your computer (Host) to port 8080 inside the container
     ports:
       - "8080:8080"
+
+    # Critical: If the app crashes (e.g., because the DB is not fully ready yet),
+    # Docker will automatically attempt to restart it.
     restart: on-failure
+
+    # Override settings from application.properties using environment variables
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/employee_directory # rewriting datasource -> mysql-db instead of localhost
       - SPRING_DATASOURCE_USERNAME=springstudent
       - SPRING_DATASOURCE_PASSWORD=springstudent
 
+
+  # ==========================================
+  # Service 2: MySQL Database
+  # ==========================================
   mysql-db:
     container_name: "mysql-container"
+
+    # Instead of pulling a standard image, we build a custom one using 'Dockerfile.db'.
+    # This allows us to bake the init.sql script directly into the image with correct permissions.
     build:
       context: .
       dockerfile: Dockerfile.db
+
+    # These variables instruct MySQL to create the database and user upon the FIRST startup.
     environment:
       MYSQL_DATABASE: employee_directory
       MYSQL_USER: springstudent
       MYSQL_PASSWORD: springstudent
       MYSQL_ROOT_PASSWORD: root
+
+    # Mount a named volume to persist data.
+    # Without this, all data would be lost if the container is removed.
     volumes:
       - mysql-data:/var/lib/mysql
 
+# Define the persistent volume managed by Docker
 volumes:
   mysql-data:
 

@@ -1,4 +1,7 @@
 # ==============================================================================
+# Spring Application Dockerfile. Optimized
+# ==============================================================================
+
 # STAGE 1: Build the application
 # We use the full JDK (Development Kit) here because we need tools to compile code.
 # We name this stage "buildstep" to reference it later.

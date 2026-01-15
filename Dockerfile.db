@@ -1,5 +1,15 @@
+# ==============================================================================
+# Database Dockerfile
+# ==============================================================================
+
 FROM mysql:8.0.44-debian
 
+# Copy the initialization script from your computer (host) to the container.
+# The directory '/docker-entrypoint-initdb.d/' is a special folder in official MySQL images.
+# Any .sql files found here will be automatically executed ONLY during the first container startup.
 COPY ./init.sql /docker-entrypoint-initdb.d/init.sql
 
+# Change file permissions explicitly to fix "Permission Denied" errors.
+# '755' grants Read and Execute permissions to everyone (including the mysql user),
+# ensuring the database process can actually open and run this script.
 RUN chmod 755 /docker-entrypoint-initdb.d/init.sql
