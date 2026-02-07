@@ -1,4 +1,4 @@
-# Spring Boot REST CRUD with Native Hibernate/JPA
+# Spring Boot REST CRUD with Native Hibernate/JPA, Docker, SonarQube, Swagger
 
 This project serves as a practical demonstration of building a RESTful API using Spring Boot and Native JPA (Hibernate).
 
