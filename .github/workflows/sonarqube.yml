@@ -64,5 +64,6 @@ jobs:
           args:
               -Dsonar.projectKey=erzhhhh_spring-boot-rest-crud-demo
               -Dsonar.organization=erzhhhh
-              -Dsonar.sources=.
+              -Dsonar.sources=src
+              -Dsonar.java.binaries=target/classes
 
