@@ -47,6 +47,9 @@ Below are the available endpoints:
   - DELETE/api/employees/{id} - delete an employee
 
 
+## Sonarqube Code Analysis
+https://sonarcloud.io/project/overview?id=erzhhhh_spring-boot-rest-crud-demo
+
 
 ## API Documentation (Swagger)
 
